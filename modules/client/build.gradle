@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'edu.bsu'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':modules:server')
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+}

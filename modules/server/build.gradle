@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'edu.bsu'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("com.google.guava:guava:19.0")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}

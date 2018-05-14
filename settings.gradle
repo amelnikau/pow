@@ -1,0 +1,6 @@
+rootProject.name = 'pow'
+include 'modules:server'
+findProject(':modules:server')?.name = 'server'
+include 'modules:client'
+findProject(':modules:client')?.name = 'client'
+
