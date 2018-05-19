@@ -1,7 +1,7 @@
 package edu.bsu.pow.controller;
 
 import edu.bsu.pow.model.Puzzle;
-import edu.bsu.pow.service.NonceService;
+import edu.bsu.pow.service.PuzzleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PuzzleController
 {
-    private final NonceService nonceService;
+    private final PuzzleService nonceService;
 
     @Autowired
-    public PuzzleController(NonceService nonceService)
+    public PuzzleController(PuzzleService nonceService)
     {
         this.nonceService = nonceService;
     }
@@ -23,6 +23,6 @@ public class PuzzleController
     @ResponseBody
     public Puzzle getPuzzle()
     {
-        return new Puzzle(nonceService.getNewNonce());
+        return new Puzzle(nonceService.getNewPuzzle());
     }
 }

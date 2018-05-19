@@ -6,31 +6,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PowService
 {
-    private final NonceService nonceService;
+    private final PuzzleService nonceService;
+    private final HashingService hashingService;
 
     @Autowired
-    public PowService(NonceService nonceService)
+    public PowService(PuzzleService nonceService, HashingService hashingService)
     {
         this.nonceService = nonceService;
+        this.hashingService = hashingService;
     }
 
-    public void validateSolution(long nonce, long solution)
+    public void validateSolution(String puzzle, long d, String body, long nonce, String solution)
     {
-        nonceService.validateNonce(nonce);
-        if (!isValid(nonce, solution))
-        {
-            throw new IllegalArgumentException(String.format("%s is not valid solution for %s", solution, nonce));
-        }
-    }
-
-    private boolean isValid(long nonce, long solution)
-    {
-        boolean valid = false;
-        // fake implementation, should be replaced by real one
-        if (nonce * 60 == solution)
-        {
-            valid = true;
-        }
-        return valid;
+        nonceService.validatePuzzle(puzzle);
+        hashingService.validateSolution(puzzle, d, body, nonce, solution);
     }
 }

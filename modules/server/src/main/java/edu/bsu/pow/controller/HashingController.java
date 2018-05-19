@@ -1,7 +1,8 @@
 package edu.bsu.pow.controller;
 
 import edu.bsu.pow.exception.ApiExceptionWrapper;
-import edu.bsu.pow.service.PowService;
+import edu.bsu.pow.model.Solution;
+import edu.bsu.pow.service.HashingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,29 +14,24 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class CertificateController
+public class HashingController
 {
-    private final PowService powService;
+    private final HashingService hashingService;
 
     @Autowired
-    public CertificateController(PowService powService)
+    public HashingController(HashingService hashingService)
     {
-        this.powService = powService;
+        this.hashingService = hashingService;
     }
 
-    @PostMapping("/revokeCertificate")
+    @PostMapping("/calculateNonce")
     @ResponseBody
-    public String revokeCertificate(
-            @RequestHeader(value = "puzzle") String puzzle,
+    public Solution revokeCertificate(
             @RequestHeader(value = "d") Long d,
-            @RequestHeader(value = "nonce") Long nonce,
-            @RequestHeader(value = "solution") String solution,
+            @RequestHeader(value = "puzzle") String puzzle,
             @RequestBody String body)
     {
-        powService.validateSolution(puzzle, d, body, nonce, solution);
-        // if no exception occurred, than it means that nonce & solution are valid
-        // we can check password & revoke certificate if everything is ok
-        return "Certificate has been revoked";
+        return hashingService.getSolution(puzzle, d, body);
     }
 
     @ExceptionHandler(Exception.class)

@@ -6,24 +6,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Puzzle
 {
-    private final long nonce;
+    private final String puzzle;
+    private final long d = 11;
 
     @JsonCreator
-    public Puzzle(@JsonProperty("nonce") long nonce)
+    public Puzzle(@JsonProperty("puzzle") String puzzle)
     {
-        this.nonce = nonce;
+        this.puzzle = puzzle;
     }
 
-    public long getNonce()
+    public String getPuzzle()
     {
-        return nonce;
+        return puzzle;
+    }
+
+    public long getD()
+    {
+        return d;
     }
 
     @Override
     public String toString()
     {
         final StringBuilder sb = new StringBuilder("Puzzle{");
-        sb.append("nonce=").append(nonce);
+        sb.append("puzzle=").append(puzzle);
+        sb.append(", d=").append(d);
         sb.append('}');
         return sb.toString();
     }
